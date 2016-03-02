@@ -11,10 +11,8 @@
 uint8_t  SD_Type; 	//SD卡的类型
 
 //---------------------------内部调用函数声明--------------------------
-uint8_t SD_SPI_ReadWriteByte(uint8_t data);
 uint8_t SD_SendCmd(uint8_t cmd, uint32_t arg, uint8_t crc);
 uint8_t SD_Select(void);
-uint8_t SD_WaitReady(void);
 uint8_t SD_TypeJudge(void);
 uint8_t SD_RecvData(uint8_t*buf,uint16_t len);
 uint8_t SD_SendBlock(uint8_t*buf,uint8_t cmd);
@@ -22,8 +20,6 @@ uint8_t SD_GetResponse(uint8_t Response);
 
 
 void SD_DisSelect(void);
-void SD_SPI_SpeedLow(void);
-void SD_SPI_SpeedHigh(void);
 void SD_SPI_Init(void);
 
 //=============== 函数实现 =====================
@@ -202,6 +198,56 @@ uint8_t SD_GetCID(uint8_t *cid_data)
 	if(r1)return 1;
 	else return 0;
 }		
+
+/*
+ * 函数名：SD_WaitReady()
+ * 输入：void
+ * 输出：uint8_t:0,成功;1,失败;
+ * 功能：等待卡准备好，超时表示错误
+ */
+uint8_t SD_WaitReady(void)
+{
+	uint32_t t=0;
+	do
+	{
+		if(SD_SPI_ReadWriteByte(DUMMY_DATA)==0XFF)return 0;//OK,SD卡准备好会返回0XFF
+		t++;		  	
+	}while(t<0XFFFFFF);//等待 
+	return 1;
+}
+
+/*
+ * 函数名：SD_SPI_ReadWriteByte()
+ * 输入：uint8_t data：要写入的数据
+ * 输出：uint8_t 读到的数据
+ * 功能：对SD写入并读出数据
+ */
+uint8_t SD_SPI_ReadWriteByte(uint8_t data)
+{
+	return SPI1_ReadWriteByte(data);
+}	  
+
+/*
+ * 函数名：SD_SPI_SpeedLow()
+ * 输入：void
+ * 输出：void
+ * 功能：SD卡初始化的时候,需要SPI为低速
+ */
+void SD_SPI_SpeedLow(void)
+{
+ 	SPI1_SetSpeed(SPI_BaudRatePrescaler_256);//设置到低速模式	
+}
+
+/*
+ * 函数名：SD_SPI_SpeedLow()
+ * 输入：void
+ * 输出：void
+ * 功能：SD卡正常工作的时候,设置为高速
+ */
+void SD_SPI_SpeedHigh(void)
+{
+ 	SPI1_SetSpeed(SPI_BaudRatePrescaler_2);//设置到高速模式	
+}
 ////////////////////////////////////内部调用函数区///////////////////////////////////
 /*
  * 函数名：SD_SendBlock()
@@ -347,39 +393,6 @@ void SD_SPI_Init(void)
 }
 
 /*
- * 函数名：SD_SPI_ReadWriteByte()
- * 输入：uint8_t data：要写入的数据
- * 输出：uint8_t 读到的数据
- * 功能：对SD写入并读出数据
- */
-uint8_t SD_SPI_ReadWriteByte(uint8_t data)
-{
-	return SPI1_ReadWriteByte(data);
-}	  
-
-/*
- * 函数名：SD_SPI_SpeedLow()
- * 输入：void
- * 输出：void
- * 功能：SD卡初始化的时候,需要SPI为低速
- */
-void SD_SPI_SpeedLow(void)
-{
- 	SPI1_SetSpeed(SPI_BaudRatePrescaler_256);//设置到低速模式	
-}
-
-/*
- * 函数名：SD_SPI_SpeedLow()
- * 输入：void
- * 输出：void
- * 功能：SD卡正常工作的时候,设置为高速
- */
-void SD_SPI_SpeedHigh(void)
-{
- 	SPI1_SetSpeed(SPI_BaudRatePrescaler_2);//设置到高速模式	
-}
-
-/*
  * 函数名：SD_DisSelect()
  * 输入：void
  * 输出：void
@@ -438,23 +451,6 @@ uint8_t SD_SendCmd(uint8_t cmd, uint32_t arg, uint8_t crc)
 	//返回状态值
     return r1;
 }	
-
-/*
- * 函数名：SD_WaitReady()
- * 输入：void
- * 输出：uint8_t:0,成功;1,失败;
- * 功能：等待卡准备好，超时表示错误
- */
-uint8_t SD_WaitReady(void)
-{
-	uint32_t t=0;
-	do
-	{
-		if(SD_SPI_ReadWriteByte(DUMMY_DATA)==0XFF)return 0;//OK,SD卡准备好会返回0XFF
-		t++;		  	
-	}while(t<0XFFFFFF);//等待 
-	return 1;
-}
 
 /*
  * 函数名：SD_GetResponse()

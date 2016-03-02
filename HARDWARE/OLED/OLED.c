@@ -130,13 +130,14 @@ void OLED_Init(void)
  * 函数名：OLED_Display_On()
  * 输入：void
  * 输出：void
- * 功能：开启OLED显示
+ * 功能：开启OLED电源
  */
 
 void OLED_Display_On(void)
 {
 	OLED_WR_Byte(0X8D,OLED_CMD);  //SET DCDC命令
 	OLED_WR_Byte(0X14,OLED_CMD);  //DCDC ON
+	
 	OLED_WR_Byte(0XAF,OLED_CMD);  //DISPLAY ON
 }
 
@@ -148,9 +149,10 @@ void OLED_Display_On(void)
  */
 void OLED_Display_Off(void)
 {
+	OLED_WR_Byte(0XAE,OLED_CMD);  //DISPLAY OFF
+	
 	OLED_WR_Byte(0X8D,OLED_CMD);  //SET DCDC命令
 	OLED_WR_Byte(0X10,OLED_CMD);  //DCDC OFF
-	OLED_WR_Byte(0XAE,OLED_CMD);  //DISPLAY OFF
 }		
 
 /*

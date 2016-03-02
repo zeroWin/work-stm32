@@ -2,9 +2,9 @@
 ..\out\stm32l1xx_pwr.o: ..\FWlib\inc\stm32l1xx_pwr.h
 ..\out\stm32l1xx_pwr.o: ..\CMSIS\stm32l1xx.h
 ..\out\stm32l1xx_pwr.o: ..\CMSIS\core_cm3.h
-..\out\stm32l1xx_pwr.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
-..\out\stm32l1xx_pwr.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
-..\out\stm32l1xx_pwr.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+..\out\stm32l1xx_pwr.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\out\stm32l1xx_pwr.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
+..\out\stm32l1xx_pwr.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
 ..\out\stm32l1xx_pwr.o: ..\CMSIS\system_stm32l1xx.h
 ..\out\stm32l1xx_pwr.o: ..\USER\stm32l1xx_conf.h
 ..\out\stm32l1xx_pwr.o: ..\FWlib\inc\stm32l1xx_adc.h

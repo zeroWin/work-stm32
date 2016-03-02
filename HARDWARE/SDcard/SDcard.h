@@ -74,8 +74,10 @@ uint8_t SD_WriteDisk(uint8_t*buf,uint32_t sector,uint8_t cnt);//写SD卡扇区操作
 uint32_t SD_GetSectorCount(void);//得到SD卡的扇区（或总容量）
 uint8_t SD_GetCSD(uint8_t *csd_data);//得到SD卡的CSD信息
 uint8_t SD_GetCID(uint8_t *cid_data);//获取SD卡的CID信息
+uint8_t SD_WaitReady(void);//等待SD卡准备好
 
-
-
+void SD_SPI_SpeedLow(void);//设置低速模式	
+void SD_SPI_SpeedHigh(void);//设置高速模式
+uint8_t SD_SPI_ReadWriteByte(uint8_t data);//向SD卡发送接收单字节数据
 
 #endif

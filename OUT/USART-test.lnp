@@ -22,6 +22,9 @@
 "..\out\tasks.o"
 "..\out\heap_2.o"
 "..\out\port.o"
+"..\out\diskio.o"
+"..\out\ff.o"
+"..\out\exfuns.o"
 --library_type=microlib --ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "..\Listing\USART-test.map" -o ..\OUT\USART-test.axf

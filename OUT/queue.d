@@ -1,8 +1,8 @@
 ..\out\queue.o: ..\FreeRTOS\queue.c
-..\out\queue.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h
-..\out\queue.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
+..\out\queue.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+..\out\queue.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
 ..\out\queue.o: ..\FreeRTOS\include\FreeRTOS.h
-..\out\queue.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
+..\out\queue.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
 ..\out\queue.o: ..\FreeRTOS\include\projdefs.h
 ..\out\queue.o: ..\FreeRTOS\include\FreeRTOSConfig.h
 ..\out\queue.o: ..\FreeRTOS\include\portable.h

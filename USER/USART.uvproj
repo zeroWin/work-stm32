@@ -143,7 +143,7 @@
             <RestoreToolbox>1</RestoreToolbox>
             <RestoreTracepoints>0</RestoreTracepoints>
             <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>1</UsePdscDebugDescription>
+            <UsePdscDebugDescription>0</UsePdscDebugDescription>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>1</TargetSelection>
@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32L1XX_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC;..\HARDWARE\SDcard</IncludePath>
+              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC;..\HARDWARE\SDcard;..\FATFS\src;..\FATFS\exfuns</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -546,6 +546,26 @@
               <FileName>port.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\FreeRTOS\portable\RVDS\ARM_CM3\port.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FATFS</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FATFS\src\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FATFS\src\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>exfuns.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FATFS\exfuns\exfuns.c</FilePath>
             </File>
           </Files>
         </Group>
