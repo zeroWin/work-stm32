@@ -7,8 +7,9 @@
 
 //////////////////////////////////////////////////////////////////////////////////	
 
-
-
+//---------------------------内部调用函数声明--------------------------
+uint8_t IsButtonPressed(void);
+uint8_t GetPressType(GPIO_TypeDef* ButtonX_PORT,uint32_t ButtonX_PIN);
 
 
 //=============== 函数实现 =====================
@@ -40,6 +41,29 @@ void KEY_Init(void)
 	GPIO_Init(BUTTON_B_GPIO_PORT,&GPIO_InitStructure);
 }
 
+
+/*
+ * 函数名：KEY_Scan()
+ * 输入：void
+ * 输出：uint ButtonType:	按下按键的类型
+ * 功能：返回按键类型
+ */
+uint8_t KEY_Scan(void)
+{
+	uint8_t ButtonType;
+	ButtonType = IsButtonPressed();		//获取是否按下按键
+	
+	switch(ButtonType)
+	{
+		case BUTTON_A_PRESSED:ButtonType = (GetPressType(BUTTON_A_GPIO_PORT,BUTTON_A_GPIO_PIN)+BUTTON_A_TYPE_ADRRESS);break;	//获取A键按下的类型
+		case BUTTON_B_PRESSED:ButtonType = (GetPressType(BUTTON_B_GPIO_PORT,BUTTON_B_GPIO_PIN)+BUTTON_B_TYPE_ADRRESS);break;	//获取B键按下的类型
+		default:ButtonType = NO_BUTTON_PRESSED;break;								//无键按下
+		
+	}
+	return ButtonType;					//返回按键类型
+}
+
+////////////////////////////////////内部调用函数区///////////////////////////////////
 /*
  * 函数名：IsButtonPressed()
  * 输入：void
@@ -107,34 +131,8 @@ uint8_t GetPressType(GPIO_TypeDef* ButtonX_PORT,uint32_t ButtonX_PIN)
 	}
 	
 	return ButtonType;
-	
-
 }
-
-
-
-/*
- * 函数名：KEY_Scan()
- * 输入：void
- * 输出：uint ButtonType:	按下按键的类型
- * 功能：返回按键类型
- */
-uint8_t KEY_Scan(void)
-{
-	uint8_t ButtonType;
-	ButtonType = IsButtonPressed();		//获取是否按下按键
-	
-	switch(ButtonType)
-	{
-		case BUTTON_A_PRESSED:ButtonType = (GetPressType(BUTTON_A_GPIO_PORT,BUTTON_A_GPIO_PIN)+BUTTON_A_TYPE_ADRRESS);break;	//获取A键按下的类型
-		case BUTTON_B_PRESSED:ButtonType = (GetPressType(BUTTON_B_GPIO_PORT,BUTTON_B_GPIO_PIN)+BUTTON_B_TYPE_ADRRESS);break;	//获取B键按下的类型
-		default:ButtonType = NO_BUTTON_PRESSED;break;								//无键按下
-		
-	}
-	return ButtonType;					//返回按键类型
-}
-
-
+////////////////////////////////////内部调用函数区结束///////////////////////////////////
 
 
 

@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32L1XX_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC</IncludePath>
+              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC;..\HARDWARE\SDcard</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -467,6 +467,11 @@
               <FileType>1</FileType>
               <FilePath>..\FWlib\src\stm32l1xx_pwr.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32l1xx_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWlib\src\stm32l1xx_spi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -501,6 +506,16 @@
               <FileName>RTC.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\RTC\RTC.c</FilePath>
+            </File>
+            <File>
+              <FileName>SDcard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\SDcard\SDcard.c</FilePath>
+            </File>
+            <File>
+              <FileName>SPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\SDcard\SPI.c</FilePath>
             </File>
           </Files>
         </Group>

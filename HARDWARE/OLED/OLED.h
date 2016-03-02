@@ -34,6 +34,7 @@
 #define RST_L GPIO_ResetBits(OLED_GPIO_RST_PORT,OLED_RST_GPIO_PIN)
 
 
+
 //---------------------------相关变量宏定义-------------------------- 
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
@@ -44,7 +45,6 @@
 
 
 //OLED控制函数
-void OLED_WR_Byte(uint8_t data,uint8_t cmd);
 void OLED_Display_On(void);
 void OLED_Display_Off(void);
 void OLED_Refresh_Gram(void);

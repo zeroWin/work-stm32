@@ -35,6 +35,7 @@
 ..\out\main.o: ..\FWlib\inc\misc.h
 ..\out\main.o: ..\HARDWARE\KEY\key.h
 ..\out\main.o: ..\HARDWARE\RTC\RTC.h
+..\out\main.o: ..\HARDWARE\SDcard\SDcard.h
 ..\out\main.o: ..\FreeRTOS\include\FreeRTOS.h
 ..\out\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
 ..\out\main.o: ..\FreeRTOS\include\projdefs.h

@@ -19,82 +19,15 @@
 
 uint8_t OLED_GRAM[128][4];
 
+
+//---------------------------内部调用函数声明--------------------------
+void I2C_Start(void);
+void I2C_Stop(void);
+void I2C_Ack(void);
+void I2C_WriteBit(uint8_t WriteData);
+void OLED_WR_Byte(uint8_t data,uint8_t cmd);
+
 //=============== 函数实现 =====================
-//I2C相关函数,内部调用
-/*
- * 函数名：I2C_Start()
- * 输入：void
- * 输出：void
- * 功能：I2C启动信号
- *			 无论SDA、SCL处于什么状态，本程序均能正确的产生开始状态
- */
-void I2C_Start(void)
-{
-	SDA_H;
-	SCL_H;			//SDA,SCL初始化为高
-	 
-	SDA_L;			//拉低SDA表示启动
-	SCL_L;			//拉低SCL，嵌住I2C总线，准备发送或接受数据
-}
-
-/*
- * 函数名：I2C_stop()
- * 输入：void
- * 输出：void
- * 功能：I2C结束信号
- *			 无论SDA、SCL处于什么状态，本程序均能正确结束状态
- */
-void I2C_Stop(void)
-{
-	SDA_L;		//拉低SDA的电平
-	SCL_H;		//SCL为高电平
-	
-	SDA_H;		//SDA拉高表示结束
-}
-
-/*
- * 函数名：I2C_Ack()
- * 输入：void
- * 输出：void
- * 功能：发送应答信号
- */
-void I2C_Ack(void)
-{
-	SDA_L;		//拉低SDA
-	
-	SCL_H;		//拉高SCL
-	SCL_L;		//拉低SCL
-	
-}
-
-/*
- * 函数名：I2C_WriteBit()
- * 输入：8bit数据
- * 输出：void
- * 功能：写入数据
- * 			 先发高位，再发低位
- */
-void I2C_WriteBit(uint8_t WriteData)
-{
-	uint8_t	length = 8;
-	
-	SCL_L;		//保证SCL电平为低
-	
-	while(length--)
-	{
-		if(WriteData & 0x80)
-			SDA_H;	//写入高电平
-		else
-			SDA_L;	//写入低电平
-		
-		SCL_H;		//拉高SCL写入数据到ROM
-		
-		SCL_L;		//拉低SCL修改下次SDA数据
-		
-		WriteData = WriteData << 1;	//数据左移位
-	}
-}
-
 /*
  * 函数名：OLED_Init()
  * 输入：void
@@ -104,8 +37,9 @@ void I2C_WriteBit(uint8_t WriteData)
 void OLED_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	//开启GPIOA的外设时钟
+	//开启GPIO的外设时钟
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB,ENABLE);
+	
 	
 	//配置SDA的GPIO
 	GPIO_InitStructure.GPIO_Pin = OLED_SDA_GPIO_PIN;
@@ -190,39 +124,6 @@ void OLED_Init(void)
 	OLED_WR_Byte(0xAF,OLED_CMD);//开启显示	
 	OLED_Clear();
 
-}
-
-
-/*
- * 函数名：OLED_WR_Byte()
- * 输入：data:要写入的数据/命令
- *		 cmd:数据/命令标志 0,表示命令;1,表示数据; 
- * 输出：void
- * 功能：向SSD1306写入一个字节。
- */
-void OLED_WR_Byte(uint8_t data,uint8_t cmd)
-{
-	//I2C启动信号
-	I2C_Start();
-	
-	//发送地址位 0111 1000 = 0x78;
-	I2C_WriteBit(0x78);
-	I2C_Ack();
-	
-	if(cmd == OLED_CMD)	//控制信号 0000 0000 = 0x00
-		I2C_WriteBit(0x00);
-	else				//普通数据 0100 0000 = 0x40
-		I2C_WriteBit(0x40);
-	I2C_Ack();
-	
-	//发送数据
-	I2C_WriteBit(data);
-	I2C_Ack();
-	
-	
-	//I2C停止信号
-	I2C_Stop();
-	
 }
 
 /*
@@ -448,3 +349,111 @@ void OLED_ShowString(uint8_t x,uint8_t y,const uint8_t *p)
     }  
 }	
 
+////////////////////////////////////内部调用函数区///////////////////////////////////
+//I2C相关函数,内部调用
+/*
+ * 函数名：I2C_Start()
+ * 输入：void
+ * 输出：void
+ * 功能：I2C启动信号
+ *			 无论SDA、SCL处于什么状态，本程序均能正确的产生开始状态
+ */
+void I2C_Start(void)
+{
+	SDA_H;
+	SCL_H;			//SDA,SCL初始化为高
+	 
+	SDA_L;			//拉低SDA表示启动
+	SCL_L;			//拉低SCL，嵌住I2C总线，准备发送或接受数据
+}
+
+/*
+ * 函数名：I2C_stop()
+ * 输入：void
+ * 输出：void
+ * 功能：I2C结束信号
+ *			 无论SDA、SCL处于什么状态，本程序均能正确结束状态
+ */
+void I2C_Stop(void)
+{
+	SDA_L;		//拉低SDA的电平
+	SCL_H;		//SCL为高电平
+	
+	SDA_H;		//SDA拉高表示结束
+}
+
+/*
+ * 函数名：I2C_Ack()
+ * 输入：void
+ * 输出：void
+ * 功能：发送应答信号
+ */
+void I2C_Ack(void)
+{
+	SDA_L;		//拉低SDA
+	
+	SCL_H;		//拉高SCL
+	SCL_L;		//拉低SCL
+	
+}
+
+/*
+ * 函数名：I2C_WriteBit()
+ * 输入：8bit数据
+ * 输出：void
+ * 功能：写入数据
+ * 			 先发高位，再发低位
+ */
+void I2C_WriteBit(uint8_t WriteData)
+{
+	uint8_t	length = 8;
+	
+	SCL_L;		//保证SCL电平为低
+	
+	while(length--)
+	{
+		if(WriteData & 0x80)
+			SDA_H;	//写入高电平
+		else
+			SDA_L;	//写入低电平
+		
+		SCL_H;		//拉高SCL写入数据到ROM
+		
+		SCL_L;		//拉低SCL修改下次SDA数据
+		
+		WriteData = WriteData << 1;	//数据左移位
+	}
+}
+
+/*
+ * 函数名：OLED_WR_Byte()
+ * 输入：data:要写入的数据/命令
+ *		 cmd:数据/命令标志 0,表示命令;1,表示数据; 
+ * 输出：void
+ * 功能：向SSD1306写入一个字节。
+ */
+void OLED_WR_Byte(uint8_t data,uint8_t cmd)
+{
+	//I2C启动信号
+	I2C_Start();
+	
+	//发送地址位 0111 1000 = 0x78;
+	I2C_WriteBit(0x78);
+	I2C_Ack();
+	
+	if(cmd == OLED_CMD)	//控制信号 0000 0000 = 0x00
+		I2C_WriteBit(0x00);
+	else				//普通数据 0100 0000 = 0x40
+		I2C_WriteBit(0x40);
+	I2C_Ack();
+	
+	//发送数据
+	I2C_WriteBit(data);
+	I2C_Ack();
+	
+	
+	//I2C停止信号
+	I2C_Stop();
+	
+}
+////////////////////////////////////内部调用函数区结束///////////////////////////////////
