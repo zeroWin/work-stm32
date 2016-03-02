@@ -9,6 +9,7 @@
 "..\out\system_stm32l1xx.o"
 "..\out\core_cm3.o"
 "..\out\oled.o"
+"..\out\key.o"
 "..\out\list.o"
 "..\out\queue.o"
 "..\out\tasks.o"

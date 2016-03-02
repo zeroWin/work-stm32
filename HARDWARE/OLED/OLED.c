@@ -110,21 +110,21 @@ void OLED_Init(void)
 	GPIO_InitStructure.GPIO_Pin = OLED_SDA_GPIO_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;	//输出
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 	//推挽
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz ;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz ;
 	GPIO_Init(OLED_GPIO_SDA_PORT,&GPIO_InitStructure);
 	
 	//配置SCL的GPIO
 	GPIO_InitStructure.GPIO_Pin = OLED_SCL_GPIO_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;	//输出
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 	//推挽
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz ;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz ;
 	GPIO_Init(OLED_GPIO_SCL_PORT,&GPIO_InitStructure);
 	
 	//配置RST的GPIO
 	GPIO_InitStructure.GPIO_Pin = OLED_RST_GPIO_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;	//输出
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP; 	//推挽
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz ;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz ;
 	GPIO_Init(OLED_GPIO_RST_PORT,&GPIO_InitStructure);
 	
 	//设置三个端口输出高电平
