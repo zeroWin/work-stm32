@@ -3,6 +3,7 @@
 #include "SDcard.h" 
 #include  "ff.h"
 #include "FreeRTOS.h"
+#include "UART2.h"
 #include "UART1.h"
 #include "task.h"
  
@@ -13,27 +14,38 @@ void vTaskButtonHandle(void * pvParameters);
 
 int main(void)
 {		
+	uint8_t num;
 	
-	USART1_Init(115200);
-	USART1_TX_BUF[0] = 0x48;
-	USART1_TX_BUF[1] = 0x49;
-	USART1_TX_BUF[2] = 0x4A;
-	USART1_TX_BUF[3] = 0x4B;
-	USART1_TX_BUF[4] = 0x4C;
-	USART1_TX_BUF[6] = 0x58;
-	USART1_TX_BUF[7] = 0x59;
-	u1_send(8);
-	//u1_printf("121212121212121212");
-	//u1_printf("343434343434343434");
-	u1_send(8);
-	u1_send(8);
-	xTaskCreate(vTaskButtonHandle, "Button Handle", configMINIMAL_STACK_SIZE, NULL, BUTTON_TASK_PRIO, NULL)	;
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	
+	USART2_Init(115200);
+
 	
-	vTaskStartScheduler();
+	UINT test_data;
+	UINT bw;
+	uint8_t buffer[1];
+ 	while(1)
+	{
+		if(USART2_RX_STA & 0x8000)
+		{
+			num = USART2_RX_STA & 0x0FFF;
+			while(1)
+			{
+				num  = num;
+			}
+		}
+		else
+		{
+		}
+   	 }
+	
+	
+	//xTaskCreate(vTaskButtonHandle, "Button Handle", configMINIMAL_STACK_SIZE, NULL, BUTTON_TASK_PRIO, NULL)	;
+	
+	//vTaskStartScheduler();
 	
 	
 	//除非发生错误，否则程序不会达到这里，此时系统的控制权是调度器
-	while(1){}
+	//while(1){}
 }
 
 
@@ -73,20 +85,15 @@ void vTaskButtonHandle(void * pvParameters)
 //	OLED_Refresh_Gram();
  	while(1)
 	{
-		if(USART1_RX_STA & 0x8000)
+		if(USART2_RX_STA & 0x8000)
 		{
 			OLED_ShowNum(0,0,0,1,16);//显示ASCII字符的码值 
-			USART1_RX_STA = 0;
-			OLED_ShowChar(0,16,USART1_RX_BUF[0],16,1);
+			USART_ITConfig(USART2,USART_IT_RXNE,DISABLE);
 		}
 		else
 			OLED_ShowNum(0,0,1,1,16);//显示ASCII字符的码值 
 		OLED_Refresh_Gram();
-		//u1_printf("HELLO");
 		vTaskDelayUntil(&xLastWakeTime,xPeriod);
    	 }
 }
-
-
-
 

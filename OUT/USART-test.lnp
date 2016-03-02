@@ -20,6 +20,7 @@
 "..\out\sdcard.o"
 "..\out\spi.o"
 "..\out\uart1.o"
+"..\out\uart2.o"
 "..\out\list.o"
 "..\out\queue.o"
 "..\out\tasks.o"

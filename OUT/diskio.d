@@ -1,14 +1,14 @@
 ..\out\diskio.o: ..\FATFS\src\diskio.c
 ..\out\diskio.o: ..\HARDWARE\SDcard\SDcard.h
-..\out\diskio.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\out\diskio.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\out\diskio.o: ..\FATFS\src\diskio.h
 ..\out\diskio.o: ..\FATFS\src\integer.h
 ..\out\diskio.o: ..\USER\stm32l1xx_conf.h
 ..\out\diskio.o: ..\FWlib\inc\stm32l1xx_adc.h
 ..\out\diskio.o: ..\CMSIS\stm32l1xx.h
 ..\out\diskio.o: ..\CMSIS\core_cm3.h
-..\out\diskio.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-..\out\diskio.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
+..\out\diskio.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+..\out\diskio.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
 ..\out\diskio.o: ..\CMSIS\system_stm32l1xx.h
 ..\out\diskio.o: ..\USER\stm32l1xx_conf.h
 ..\out\diskio.o: ..\FWlib\inc\stm32l1xx_aes.h
@@ -36,7 +36,7 @@
 ..\out\diskio.o: ..\FWlib\inc\stm32l1xx_wwdg.h
 ..\out\diskio.o: ..\FWlib\inc\misc.h
 ..\out\diskio.o: ..\FreeRTOS\include\FreeRTOS.h
-..\out\diskio.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
+..\out\diskio.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
 ..\out\diskio.o: ..\FreeRTOS\include\projdefs.h
 ..\out\diskio.o: ..\FreeRTOS\include\FreeRTOSConfig.h
 ..\out\diskio.o: ..\FreeRTOS\include\portable.h

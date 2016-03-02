@@ -1,4 +1,4 @@
-#include "UART1.h"
+#include "UART2.h"
 #include "stm32l1xx_conf.h"
 #include "stdarg.h"	 	 
 #include "stdio.h"	 	 
@@ -6,130 +6,129 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//UART1底层驱动，供BLUETOOTH模块调用
+//UART2底层驱动，供ZigBee模块调用
 
 //////////////////////////////////////////////////////////////////////////////////	
 
 
 //串口发送缓存区 	
-__align(8) uint8_t USART1_TX_BUF[USART1_MAX_SEND_LEN]; 	//发送缓冲,最大USART1_MAX_SEND_LEN字节								//如果使能了接收   	  
+__align(8) uint8_t USART2_TX_BUF[USART2_MAX_SEND_LEN]; 	//发送缓冲,最大USART2_MAX_SEND_LEN字节								//如果使能了接收   	  
 //串口接收缓存区 	
-uint8_t USART1_RX_BUF[USART1_MAX_RECV_LEN]; 				//接收缓冲,最大USART1_MAX_RECV_LEN个字节.
+uint8_t USART2_RX_BUF[USART2_MAX_RECV_LEN]; 				//接收缓冲,最大USART2_MAX_RECV_LEN个字节.
 //接收状态标志，1表示接收到数据，0表示没有
-uint16_t USART1_RX_STA=0; 
+uint16_t USART2_RX_STA=0; 
 
 //---------------------------内部调用函数声明--------------------------
-void UART1_DMA_Config(DMA_Channel_TypeDef*DMA_CHx,uint32_t cpar,uint32_t cmar);
-void TIM4_Init(uint16_t arr,uint16_t psc);
-void TIM4_Set(uint8_t sta);
-void UART1_DMA_Enable(DMA_Channel_TypeDef*DMA_CHx,uint8_t len);
+void UART2_DMA_Config(DMA_Channel_TypeDef*DMA_CHx,uint32_t cpar,uint32_t cmar);
+void TIM3_Init(uint16_t arr,uint16_t psc);
+void TIM3_Set(uint8_t sta);
+void UART2_DMA_Enable(DMA_Channel_TypeDef*DMA_CHx,uint8_t len);
 //=============== 函数实现 =====================
 /*
- * 函数名：USART1_Init()
+ * 函数名：USART2_Init()
  * 输入：uint32_t bound：要设置的波特率
  * 输出：void
- * 功能：对USART1进行初始化设置
+ * 功能：对USART2进行初始化设置
  */
-void USART1_Init(uint32_t bound)
+void USART2_Init(uint32_t bound)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
 	
 	//开启外设时钟
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOB,ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE);
 	
-	//UART1_RX端口配置
-	GPIO_InitStructure.GPIO_Pin = UART1_RX_PIN;
+	//UART2_RX端口配置
+	GPIO_InitStructure.GPIO_Pin = UART2_RX_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;		//复用功能
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;		//推挽输出 因为复用的时候端口方向由内部控制，所以这里设置成输出相当于浮空输入
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;	//10MHz
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;		//上拉
-	GPIO_Init(UART1_RX_PORT,&GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz;	//40MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;		//上拉
+	GPIO_Init(UART2_RX_PORT,&GPIO_InitStructure);
 	
-	//UART1_TX端口配置
-	GPIO_InitStructure.GPIO_Pin = UART1_TX_PIN;
+	//UART2_TX端口配置
+	GPIO_InitStructure.GPIO_Pin = UART2_TX_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;		//复用功能
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;		//推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_10MHz;	//10MHz
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;		//上拉
-	GPIO_Init(UART1_TX_PORT,&GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz;	//40MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;		//上拉
+	GPIO_Init(UART2_TX_PORT,&GPIO_InitStructure);
 	
-	//开启串口1对应引脚的复用映射
-	GPIO_PinAFConfig(UART1_TX_PORT,UART1_TX_AF_PINSOURCE,GPIO_AF_USART1);	//GPIOB6复用为USART1--TX
-	GPIO_PinAFConfig(UART1_RX_PORT,UART1_RX_AF_PINSOURCE,GPIO_AF_USART1);	//GPIOB7复用为USART1--RX
+	//开启串口2对应引脚的复用映射
+	GPIO_PinAFConfig(UART2_TX_PORT,UART2_TX_AF_PINSOURCE,GPIO_AF_USART2);	//GPIOA2复用为USART2--TX
+	GPIO_PinAFConfig(UART2_RX_PORT,UART2_RX_AF_PINSOURCE,GPIO_AF_USART2);	//GPIOA3复用为USART2--RX
 	
-	//UART1初始化
-	USART_InitStructure.USART_BaudRate = bound;		//波特率一般设置为9600
+	//UART2初始化
+	USART_InitStructure.USART_BaudRate = bound;		//波特率一般设置为bound
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;	//字长为8位数据格式
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;		//一个停止位
 	USART_InitStructure.USART_Parity = USART_Parity_No;			//无奇偶校验位
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;		//无硬件控制流
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;			//收发模式
-	
-	USART_Init(USART1, &USART_InitStructure);		//初始化串口1
+	USART_Init(USART2, &USART_InitStructure);		//初始化串口2
 	
 	//DMA波特率设置
-	USART_DMACmd(USART1,USART_DMAReq_Tx,ENABLE);	//使能串口1的DMA发送
-	//DMA配置 DMA1通道4,外设为串口1,存储器为USART1_TX_BUF 
+	USART_DMACmd(USART2,USART_DMAReq_Tx,ENABLE);	//使能串口2的DMA发送
+	//DMA配置 DMA1通道7,外设为串口2,存储器为USART2_TX_BUF 
 	//DMA各通道表参考STM32参考手册的DMA中断表
-	UART1_DMA_Config(DMA1_Channel4,(uint32_t)&USART1->DR,(uint32_t)USART1_TX_BUF);
-	USART_Cmd(USART1,ENABLE);		//使能USART1串口
-	
+	UART2_DMA_Config(DMA1_Channel7,(uint32_t)&USART2->DR,(uint32_t)USART2_TX_BUF);
+	USART_Cmd(USART2,ENABLE);		//使能USART2串口
 	
 	//接收配置
-	USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);		//开启接收中断
-	
-	//USART1中断配置
-	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;	//串口1中断通道
+	USART_ITConfig(USART2,USART_IT_RXNE,ENABLE);		//开启接收中断
+		
+	//USART2中断配置
+	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;	//串口2中断通道
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;	//抢断优先级2
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;		//子优先级3
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;		//IRQ通道使能
 	NVIC_Init(&NVIC_InitStructure);	//根据指定的参数初始化VIC寄存器
 	
-	//TIM4初始化
-	TIM4_Init(99,3199);		//10ms中断  T = 100 * 1/（3200/32000000）= 10ms
-	USART1_RX_STA = 0;		//数据获取标志位清0
-	TIM4_Set(0);			//关闭定时器4
+	
+	//TIM3初始化
+	TIM3_Init(99,3199);		//10ms中断  T = 100 * 1/（3200/32000000）= 10ms
+	USART2_RX_STA = 0;		//数据获取标志位清0
+	TIM3_Set(0);			//关闭定时器3
 	
 }
 
 
 /*
- * 函数名：u1_printf()
+ * 函数名：u2_printf()
  * 输入：char* fmt,...要发送的数据，用printf的相同的格式输入
  * 输出：void
  * 功能：通过UART1发送数据到外设
  * PS：使用时要确保一次发送数据不超过USART1_MAX_SEND_LEN字节
  */
-void u1_printf(char* fmt,...)  
+void u2_printf(char* fmt,...)  
 {  
 	va_list ap;
 	va_start(ap,fmt);
-	vsprintf((char*)USART1_TX_BUF,fmt,ap);
+	vsprintf((char*)USART2_TX_BUF,fmt,ap);
 	va_end(ap);
-	while(DMA_GetCurrDataCounter(DMA1_Channel4)!=0);	//等待通道4传输完成  
-	UART1_DMA_Enable(DMA1_Channel4,strlen((const char*)USART1_TX_BUF)); 	//通过dma发送出去
+	while(DMA_GetCurrDataCounter(DMA1_Channel7)!=0);	//等待通道4传输完成  
+	UART2_DMA_Enable(DMA1_Channel7,strlen((const char*)USART2_TX_BUF)); 	//通过dma发送出去
 }
 ////////////////////////////////////内部调用函数区///////////////////////////////////
 /*
- * 函数名：TIM4_Set()
+ * 函数名：TIM3_Set()
  * 输入：uint8_t sta：0，关闭;1,开启;	
  * 输出：void
- * 功能：设置TIM4的开关
+ * 功能：设置TIM3的开关
  */
-void TIM4_Set(uint8_t sta)
+void TIM3_Set(uint8_t sta)
 {
 	if(sta)
 	{
-		TIM_SetCounter(TIM4,0);//计数器清空
-		TIM_Cmd(TIM4, ENABLE);  //使能TIMx	
-	}else TIM_Cmd(TIM4, DISABLE);//关闭定时器4	   
+		TIM_SetCounter(TIM3,0);//计数器清空
+		TIM_Cmd(TIM3, ENABLE);  //使能TIMx	
+	}else TIM_Cmd(TIM3, DISABLE);//关闭定时器5	   
 }
 
 /*
- * 函数名：TIM4_Init()
+ * 函数名：TIM3_Init()
  * 输入：uint16_t arr,uint16_t psc
  * 		arr：自动重装值。
  *		psc：时钟预分频数	
@@ -138,25 +137,25 @@ void TIM4_Set(uint8_t sta)
  *		 10ms内没有接受数据事件发生，认为结束
  *		PS:定时器时钟为32Mhz
  */
-void TIM4_Init(uint16_t arr,uint16_t psc)
+void TIM3_Init(uint16_t arr,uint16_t psc)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	
-	//开启TIM4的时钟是能
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4,ENABLE);
+	//开启TIM3的时钟是能
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);
 	
-	//TIM4定时器	
+	//TIM3定时器	
 	TIM_TimeBaseStructure.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	
 	TIM_TimeBaseStructure.TIM_Prescaler = psc; //设置用来作为TIMx时钟频率除数的预分频值
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim，用处不明
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
-	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //根据指定的参数初始化TIMx的时间基数单位
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure); //根据指定的参数初始化TIMx的时间基数单位
 	
-	//TIM4中断使能
-	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE);
+	//TIM3中断使能
+	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE);
 	
-	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;	//串口1中断通道
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;	//串口2中断通道
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	//抢断优先级1
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;		//子优先级2
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;		//IRQ通道使能
@@ -164,9 +163,9 @@ void TIM4_Init(uint16_t arr,uint16_t psc)
 }
 
 
-///////////////////////////////////////USART1 DMA发送配置部分//////////////////////////////////	   		    
+///////////////////////////////////////USART2 DMA发送配置部分//////////////////////////////////	   		    
 /*
- * 函数名：UART1_DMA_Config()
+ * 函数名：UART2_DMA_Config()
  * 输入：DMA_Channel_TypeDef*DMA_CHx,uint32_t cpar,uint32_t cmar
  * 		DMA_CHx:DMA通道CHx
  *		cpar:外设地址
@@ -174,7 +173,7 @@ void TIM4_Init(uint16_t arr,uint16_t psc)
  * 输出：void
  * 功能：DMA1的各通道配置
  */
-void UART1_DMA_Config(DMA_Channel_TypeDef*DMA_CHx,uint32_t cpar,uint32_t cmar)
+void UART2_DMA_Config(DMA_Channel_TypeDef*DMA_CHx,uint32_t cpar,uint32_t cmar)
 {
 	DMA_InitTypeDef DMA_InitStructure;
 	//开启DMA1的时钟
@@ -199,7 +198,7 @@ void UART1_DMA_Config(DMA_Channel_TypeDef*DMA_CHx,uint32_t cpar,uint32_t cmar)
 
 
 //开启一次DMA传输
-void UART1_DMA_Enable(DMA_Channel_TypeDef*DMA_CHx,uint8_t len)
+void UART2_DMA_Enable(DMA_Channel_TypeDef*DMA_CHx,uint8_t len)
 {
 	DMA_Cmd(DMA_CHx, DISABLE );  //关闭 指示的通道        
 	DMA_SetCurrDataCounter(DMA_CHx,len);//DMA通道的DMA缓存的大小	
@@ -208,38 +207,40 @@ void UART1_DMA_Enable(DMA_Channel_TypeDef*DMA_CHx,uint8_t len)
 ////////////////////////////////////内部调用函数区///////////////////////////////////
 
 ////////////////////////////////////中断服务函数区///////////////////////////////////
-//定时器4中断服务程序
-void TIM4_IRQHandler(void)
+//定时器3中断服务程序
+void TIM3_IRQHandler(void)
 { 	
-	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)//是更新中断
+	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)//是更新中断
 	{	 			   
-		USART1_RX_STA|=1<<15;	//标记接收完成，最高位置1表示接受完成
-		TIM_ClearITPendingBit(TIM4, TIM_IT_Update);  //清除TIMx更新中断标志    
-		TIM4_Set(0);			//关闭TIM4  
+		USART2_RX_STA|=1<<15;	//标记接收完成，最高位置1表示接受完成
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);  //清除TIMx更新中断标志    
+		TIM3_Set(0);			//关闭TIM3  
 	}	    
 }
 
 
-//USART1中断服务程序
+//USART2中断服务程序
 //PS：通过判断接收连续2个字符之间的时间差不大于10ms来决定是不是一次连续的数据.
 //	  如果2个字符接收间隔超过10ms,则认为不是1次连续数据.也就是超过10ms没有接收到
 //	  任何数据,则表示此次接收完毕.
-void USART1_IRQHandler(void)
+void USART2_IRQHandler(void)
 {
 	uint8_t res;	    
-	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)//接收到数据
+	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)//接收到数据
 	{	 
-		res =USART_ReceiveData(USART1);		
-		if(USART1_RX_STA<USART1_MAX_RECV_LEN)		//接收的字节不大于最大接收数，还可以接收数据
+		res =USART_ReceiveData(USART2);		
+		if(USART2_RX_STA<USART2_MAX_RECV_LEN)		//接收的字节不大于最大接收数，还可以接收数据
 		{
-			TIM_SetCounter(TIM4,0);//计数器清空，表示10ms内有下次数据来到，不会引发中断        				 
-			if(USART1_RX_STA==0)TIM4_Set(1);	 	//第一次接收到数据,使能定时器4的中断 
-			USART1_RX_BUF[USART1_RX_STA++]=res;		//记录接收到的值	 
+			TIM_SetCounter(TIM3,0);//计数器清空，表示10ms内有下次数据来到，不会引发中断        				 
+			if(USART2_RX_STA ==0 )TIM3_Set(1);	 	//第一次接收到数据,使能定时器3的中断 
+			USART2_RX_BUF[USART2_RX_STA++]=res;		//记录接收到的值	 
 		}else 
 		{
-			USART1_RX_STA|=1<<15;					//接收的字节不大于最大接收数，强制标记接收完成
+			USART2_RX_STA |= 1<<15;					//接收的字节不大于最大接收数，强制标记接收完成
 		} 
-	}  											 
+	}
+	
+ 	
 }   
 
 

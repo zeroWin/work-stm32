@@ -2,9 +2,9 @@
 ..\out\stm32l1xx_dma.o: ..\FWlib\inc\stm32l1xx_dma.h
 ..\out\stm32l1xx_dma.o: ..\CMSIS\stm32l1xx.h
 ..\out\stm32l1xx_dma.o: ..\CMSIS\core_cm3.h
-..\out\stm32l1xx_dma.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-..\out\stm32l1xx_dma.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-..\out\stm32l1xx_dma.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
+..\out\stm32l1xx_dma.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+..\out\stm32l1xx_dma.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+..\out\stm32l1xx_dma.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
 ..\out\stm32l1xx_dma.o: ..\CMSIS\system_stm32l1xx.h
 ..\out\stm32l1xx_dma.o: ..\USER\stm32l1xx_conf.h
 ..\out\stm32l1xx_dma.o: ..\FWlib\inc\stm32l1xx_adc.h

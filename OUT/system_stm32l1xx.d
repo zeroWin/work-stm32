@@ -1,9 +1,9 @@
 ..\out\system_stm32l1xx.o: ..\CMSIS\system_stm32l1xx.c
 ..\out\system_stm32l1xx.o: ..\CMSIS\stm32l1xx.h
 ..\out\system_stm32l1xx.o: ..\CMSIS\core_cm3.h
-..\out\system_stm32l1xx.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-..\out\system_stm32l1xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-..\out\system_stm32l1xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
+..\out\system_stm32l1xx.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+..\out\system_stm32l1xx.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+..\out\system_stm32l1xx.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
 ..\out\system_stm32l1xx.o: ..\CMSIS\system_stm32l1xx.h
 ..\out\system_stm32l1xx.o: ..\USER\stm32l1xx_conf.h
 ..\out\system_stm32l1xx.o: ..\FWlib\inc\stm32l1xx_adc.h

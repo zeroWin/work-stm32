@@ -376,9 +376,9 @@ uint8_t SD_TypeJudge(void)
 void SD_SPI_Init(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
-	//¿ªÆôÍâÉèÊ±ÖÓ
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE); //PORTAÊ±ÖÓÊ¹ÄÜ¡
 	
+	//¿ªÆôÍâÉèÊ±ÖÓ
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE); //PORTAÊ±ÖÓÊ¹ÄÜ
 	//ÅäÖÃCSµÄGPIO
 	GPIO_InitStructure.GPIO_Pin = SD_CS_GPIO_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;		//Êä³ö

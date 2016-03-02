@@ -1,12 +1,12 @@
 ..\out\uart1.o: ..\HARDWARE\BLUETOOTH\UART1.c
 ..\out\uart1.o: ..\HARDWARE\BLUETOOTH\UART1.h
-..\out\uart1.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\out\uart1.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\out\uart1.o: ..\USER\stm32l1xx_conf.h
 ..\out\uart1.o: ..\FWlib\inc\stm32l1xx_adc.h
 ..\out\uart1.o: ..\CMSIS\stm32l1xx.h
 ..\out\uart1.o: ..\CMSIS\core_cm3.h
-..\out\uart1.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-..\out\uart1.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
+..\out\uart1.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+..\out\uart1.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
 ..\out\uart1.o: ..\CMSIS\system_stm32l1xx.h
 ..\out\uart1.o: ..\USER\stm32l1xx_conf.h
 ..\out\uart1.o: ..\FWlib\inc\stm32l1xx_aes.h
@@ -33,6 +33,6 @@
 ..\out\uart1.o: ..\FWlib\inc\stm32l1xx_usart.h
 ..\out\uart1.o: ..\FWlib\inc\stm32l1xx_wwdg.h
 ..\out\uart1.o: ..\FWlib\inc\misc.h
-..\out\uart1.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
-..\out\uart1.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-..\out\uart1.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+..\out\uart1.o: C:\Keil\ARM\ARMCC\bin\..\include\stdarg.h
+..\out\uart1.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
+..\out\uart1.o: C:\Keil\ARM\ARMCC\bin\..\include\string.h
