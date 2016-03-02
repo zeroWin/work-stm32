@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32L1XX_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC;..\HARDWARE\SDcard;..\FATFS\src;..\FATFS\exfuns</IncludePath>
+              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC;..\HARDWARE\SDcard;..\FATFS\src;..\FATFS\exfuns;..\HARDWARE\BLUETOOTH</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -472,6 +472,16 @@
               <FileType>1</FileType>
               <FilePath>..\FWlib\src\stm32l1xx_spi.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32l1xx_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWlib\src\stm32l1xx_dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWlib\src\stm32l1xx_tim.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -516,6 +526,11 @@
               <FileName>SPI.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\SDcard\SPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>UART1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\BLUETOOTH\UART1.c</FilePath>
             </File>
           </Files>
         </Group>

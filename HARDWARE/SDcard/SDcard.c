@@ -377,7 +377,7 @@ void SD_SPI_Init(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	//ø™∆ÙÕ‚…Ë ±÷”
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE); //PORTA ±÷” πƒ‹ 
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA,ENABLE); //PORTA ±÷” πƒ‹°
 	
 	//≈‰÷√CSµƒGPIO
 	GPIO_InitStructure.GPIO_Pin = SD_CS_GPIO_PIN;

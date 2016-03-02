@@ -45,6 +45,6 @@
 ..\out\main.o: ..\FreeRTOS\include\portable.h
 ..\out\main.o: ..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h
 ..\out\main.o: ..\FreeRTOS\include\mpu_wrappers.h
+..\out\main.o: ..\HARDWARE\BLUETOOTH\UART1.h
 ..\out\main.o: ..\FreeRTOS\include\task.h
 ..\out\main.o: ..\FreeRTOS\include\list.h
-..\out\main.o: ..\HARDWARE\RTC\RTC.h

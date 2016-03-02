@@ -3,13 +3,7 @@
 #include "stm32l1xx_conf.h"
 #include "FreeRTOS.h"
 #include "task.h"
-//////////////////////////////////////////////////////////////////////////////////
-
-//V1.0此文件由用户提供，是文件系统所调用的底层驱动部分，应按照FATFS的说明文档，在这些函数
-//    中填充相应的功能
-
-//////////////////////////////////////////////////////////////////////////////////	
-
+//#include "malloc.h"		 		   
 
 #define SD_CARD	 0  //SD卡,卷标为0
 
@@ -37,8 +31,7 @@ DSTATUS disk_initialize (
 	}		 
 	if(res)return  STA_NOINIT;
 	else return 0; //初始化成功
-}
-
+}   
 //获得磁盘状态
 DSTATUS disk_status (
 	BYTE drv		/* Physical drive nmuber (0..) */
@@ -149,7 +142,6 @@ DRESULT disk_ioctl (
 	}else res=RES_ERROR;//其他的不支持
     return res;
 }   
-
 //获得时间
 //User defined function to give a current time to fatfs module      */
 //31-25: Year(0-127 org.1980), 24-21: Month(1-12), 20-16: Day(1-31) */                                                                                                                                                                                                                                          
