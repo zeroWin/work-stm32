@@ -1,5 +1,7 @@
 #include	"OLED.h"
 #include	"oledfont.h"
+#include 	"FreeRTOS.h"
+#include 	"task.h"
 //////////////////////////////////////////////////////////////////////////////////
 
 //待填说明
@@ -101,7 +103,6 @@ void I2C_WriteBit(uint8_t WriteData)
 void OLED_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	uint16_t t;
 	//开启GPIOA的外设时钟
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB,ENABLE);
 	
@@ -133,8 +134,7 @@ void OLED_Init(void)
 	
 	
 	RST_L;					//复位
-	for(t=10000;t>1;t--);
-	//vTaskDelay(OLED_RESET_WAIT_TIME);
+	vTaskDelay(OLED_RESET_WAIT_TIME);
 	RST_H;
 
 	//按照手册配置

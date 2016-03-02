@@ -72,6 +72,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopB1X>0</nStopB1X>
+            <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
@@ -362,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32L1XX_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED</IncludePath>
+              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -460,6 +462,11 @@
               <FileType>1</FileType>
               <FilePath>..\CMSIS\system_stm32l1xx.c</FilePath>
             </File>
+            <File>
+              <FileName>core_cm3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CMSIS\core_cm3.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -469,6 +476,36 @@
               <FileName>OLED.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\OLED\OLED.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FreeRTOS</GroupName>
+          <Files>
+            <File>
+              <FileName>list.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\list.c</FilePath>
+            </File>
+            <File>
+              <FileName>queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>tasks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\tasks.c</FilePath>
+            </File>
+            <File>
+              <FileName>heap_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\portable\MemMang\heap_2.c</FilePath>
+            </File>
+            <File>
+              <FileName>port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FreeRTOS\portable\RVDS\ARM_CM3\port.c</FilePath>
             </File>
           </Files>
         </Group>

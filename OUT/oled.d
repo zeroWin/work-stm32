@@ -34,3 +34,12 @@
 ..\out\oled.o: ..\FWlib\inc\stm32l1xx_wwdg.h
 ..\out\oled.o: ..\FWlib\inc\misc.h
 ..\out\oled.o: ..\HARDWARE\OLED\oledfont.h
+..\out\oled.o: ..\FreeRTOS\include\FreeRTOS.h
+..\out\oled.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
+..\out\oled.o: ..\FreeRTOS\include\projdefs.h
+..\out\oled.o: ..\FreeRTOS\include\FreeRTOSConfig.h
+..\out\oled.o: ..\FreeRTOS\include\portable.h
+..\out\oled.o: ..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h
+..\out\oled.o: ..\FreeRTOS\include\mpu_wrappers.h
+..\out\oled.o: ..\FreeRTOS\include\task.h
+..\out\oled.o: ..\FreeRTOS\include\list.h

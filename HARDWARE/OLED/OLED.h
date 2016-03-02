@@ -40,7 +40,7 @@
 
 
 //---------------------------时间宏定义--------------------------
-//#define OLED_RESET_WAIT_TIME	 	(10 / portTICK_RATE_MS)		//10ms
+#define OLED_RESET_WAIT_TIME	 	(10 / portTICK_RATE_MS)		//10ms
 
 
 //OLED控制函数

@@ -33,3 +33,12 @@
 ..\out\main.o: ..\FWlib\inc\stm32l1xx_usart.h
 ..\out\main.o: ..\FWlib\inc\stm32l1xx_wwdg.h
 ..\out\main.o: ..\FWlib\inc\misc.h
+..\out\main.o: ..\FreeRTOS\include\FreeRTOS.h
+..\out\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
+..\out\main.o: ..\FreeRTOS\include\projdefs.h
+..\out\main.o: ..\FreeRTOS\include\FreeRTOSConfig.h
+..\out\main.o: ..\FreeRTOS\include\portable.h
+..\out\main.o: ..\FreeRTOS\portable\RVDS\ARM_CM3\portmacro.h
+..\out\main.o: ..\FreeRTOS\include\mpu_wrappers.h
+..\out\main.o: ..\FreeRTOS\include\task.h
+..\out\main.o: ..\FreeRTOS\include\list.h
