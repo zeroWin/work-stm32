@@ -1,12 +1,12 @@
 ..\out\main.o: main.c
 ..\out\main.o: ..\HARDWARE\OLED\oled.h
-..\out\main.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
+..\out\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 ..\out\main.o: ..\USER\stm32l1xx_conf.h
 ..\out\main.o: ..\FWlib\inc\stm32l1xx_adc.h
 ..\out\main.o: ..\CMSIS\stm32l1xx.h
 ..\out\main.o: ..\CMSIS\core_cm3.h
-..\out\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-..\out\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
+..\out\main.o: C:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+..\out\main.o: C:\Keil\ARM\CMSIS\Include\core_cmFunc.h
 ..\out\main.o: ..\CMSIS\system_stm32l1xx.h
 ..\out\main.o: ..\USER\stm32l1xx_conf.h
 ..\out\main.o: ..\FWlib\inc\stm32l1xx_aes.h
@@ -34,8 +34,9 @@
 ..\out\main.o: ..\FWlib\inc\stm32l1xx_wwdg.h
 ..\out\main.o: ..\FWlib\inc\misc.h
 ..\out\main.o: ..\HARDWARE\KEY\key.h
+..\out\main.o: ..\HARDWARE\RTC\RTC.h
 ..\out\main.o: ..\FreeRTOS\include\FreeRTOS.h
-..\out\main.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
+..\out\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stddef.h
 ..\out\main.o: ..\FreeRTOS\include\projdefs.h
 ..\out\main.o: ..\FreeRTOS\include\FreeRTOSConfig.h
 ..\out\main.o: ..\FreeRTOS\include\portable.h

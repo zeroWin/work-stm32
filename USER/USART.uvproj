@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32L1XX_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY</IncludePath>
+              <IncludePath>..\FWlib\src;..\CMSIS;..\USER;..\FWlib\inc;..\HARDWARE\OLED;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM3;..\HARDWARE\KEY;..\HARDWARE\RTC</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -452,6 +452,21 @@
               <FileType>1</FileType>
               <FilePath>..\FWlib\src\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32l1xx_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWlib\src\stm32l1xx_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWlib\src\stm32l1xx_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32l1xx_pwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\FWlib\src\stm32l1xx_pwr.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -481,6 +496,11 @@
               <FileName>KEY.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\KEY\KEY.c</FilePath>
+            </File>
+            <File>
+              <FileName>RTC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\RTC\RTC.c</FilePath>
             </File>
           </Files>
         </Group>
