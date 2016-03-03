@@ -15,14 +15,15 @@ void vTaskButtonHandle(void * pvParameters);
 int main(void)
 {		
 	uint8_t num;
+	UINT test_data;
+	UINT bw;
+	uint8_t buffer[1];
 	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	
 	USART2_Init(115200);
 
 	
-	UINT test_data;
-	UINT bw;
-	uint8_t buffer[1];
+
  	while(1)
 	{
 		if(USART2_RX_STA & 0x8000)
